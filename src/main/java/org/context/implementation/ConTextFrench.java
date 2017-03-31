@@ -1031,7 +1031,7 @@ public class ConTextFrench implements ConText {
 			return null;
 		
 		//tokenizing the sentence in words
-		String[] words =  tagged.split("[,;\\s]+");
+		String[] words =  tagged.split("[(),;\\s]+");
 		
 		String ne = applyNegEx(words);
 		String tmp = applyTemporality(words);
@@ -1267,6 +1267,27 @@ public class ConTextFrench implements ConText {
 			else mm++;
 		}
 		return "Patient";
+	}
+	
+	
+	public static void main(String[] args) throws Exception{
+		ConTextFrench cf = new ConTextFrench();
+		String sentence="le patient a eu de la fièvre il y a 2 ans";
+		String concept="fièvre";
+		
+		Pattern regexTime = Pattern.compile("((1[4-9]|[1-9]?[2-9][0-9])[ |-][jour|jours])|" +
+				"(([2-9]|[1-9][0-9])[ |-][semaine|semaines])|" +
+				"(([1-9]?[0-9])[ |-][mois|an|ans|année|années])");
+		Matcher mTime = regexTime.matcher(sentence);
+		String sentenceTagged = mTime.replaceAll(" <TIME_PRE> ");
+		
+				System.out.println(sentenceTagged);
+		
+		ArrayList<String> al = cf.applyContext(concept, sentence);
+		for (String r:al){
+			System.out.println(r);
+		}
+		
 	}
 	
 
