@@ -995,15 +995,15 @@ public class ConTextFrench implements ConText {
 		}
 		
 		//time 
-		regexTime = Pattern.compile("((1[4-9]|[1-9]?[2-9][0-9])[ |-][jour|jours] de)|" +
-				"(([2-9]|[1-9][0-9])[ |-][semaine|semaines] de)|" +
-				"(([1-9]?[0-9])[ |-][mois|an|ans|année|années] de)");//pattern to recognize expressions of >14 days
-		regexTimeFor = Pattern.compile("[pour|pendant] [le|la|les] [dernier|dernière|dernières|derniers] (((1[4-9]|[1-9]?[2-9][0-9])[ |-][jour|jours] de)|" +
-				"(([2-9]|[1-9][0-9])[ |-][semaine|semaines] de)|" +
-				"(([1-9]?[0-9])[ |-][mois|an|ans|année|années] de))");//other pattern to recognize expressions of >14 days
-		regexTimeSince = Pattern.compile("depuis [le dernier|la dernière|les derniers|les dernières]? ((([2-9]|[1-9][0-9]) semaines)|" +
-				"(([1-9]?[0-9])? [mois|an|ans|année|années])|" +
-				"([janvier|février|mars|avril|mai|juin|juillet|aout|août|septembre|octobre|novembre|décembre|decembre|printemps|été|hiver|automne]))");
+		regexTime = Pattern.compile("((1[4-9]|[1-9]?[2-9][0-9])( |-)(jour|jours))|" +
+				"(([2-9]|[1-9][0-9])( |-)(semaine|semaines))|" +
+				"(([1-9]?[0-9])( |-)(mois|an|ans|année|années))");//pattern to recognize expressions of >14 days
+		regexTimeFor = Pattern.compile("(pour|pendant) (le|la|les) (dernier|dernière|dernières|derniers) (((1[4-9]|[1-9]?[2-9][0-9])( |-)[jour|jours] de)|" +
+				"(([2-9]|[1-9][0-9])( |-)(semaine|semaines) de)|" +
+				"(([1-9]?[0-9])( |-)(mois|an|ans|année|années) de))");//other pattern to recognize expressions of >14 days
+		regexTimeSince = Pattern.compile("(depuis|y a|ya)( le dernier| la dernière| les derniers| les dernières)? ((([2-9]|[1-9][0-9]) semaines)|" +
+				"(([1-9]?[0-9])? (mois|an|ans|année|années)))|" +
+				"((janvier|février|mars|avril|mai|juin|juillet|aout|août|septembre|octobre|novembre|décembre|decembre|printemps|été|hiver|automne))");
 		Matcher mTime = regexTimeFor.matcher(sentenceTagged);
 		sentenceTagged = mTime.replaceAll(" <TIME_PRE> ");
 		mTime = regexTime.matcher(sentenceTagged);
@@ -1269,27 +1269,5 @@ public class ConTextFrench implements ConText {
 		return "Patient";
 	}
 	
-	
-	public static void main(String[] args) throws Exception{
-		ConTextFrench cf = new ConTextFrench();
-		String sentence="le patient a eu de la fièvre il y a 2 ans";
-		String concept="fièvre";
-		
-		Pattern regexTime = Pattern.compile("((1[4-9]|[1-9]?[2-9][0-9])[ |-][jour|jours])|" +
-				"(([2-9]|[1-9][0-9])[ |-][semaine|semaines])|" +
-				"(([1-9]?[0-9])[ |-][mois|an|ans|année|années])");
-		Matcher mTime = regexTime.matcher(sentence);
-		String sentenceTagged = mTime.replaceAll(" <TIME_PRE> ");
-		
-				System.out.println(sentenceTagged);
-		
-		ArrayList<String> al = cf.applyContext(concept, sentence);
-		for (String r:al){
-			System.out.println(r);
-		}
-		
-	}
-	
-
 
 }
