@@ -995,15 +995,15 @@ public class ConTextFrench implements ConText {
 		}
 		
 		//time 
-		regexTime = Pattern.compile("((1[4-9]|[1-9]?[2-9][0-9])[ |-][jour|jours] de)|" +
-				"(([2-9]|[1-9][0-9])[ |-][semaine|semaines] de)|" +
-				"(([1-9]?[0-9])[ |-][mois|an|ans|année|années] de)");//pattern to recognize expressions of >14 days
-		regexTimeFor = Pattern.compile("[pour|pendant] [le|la|les] [dernier|dernière|dernières|derniers] (((1[4-9]|[1-9]?[2-9][0-9])[ |-][jour|jours] de)|" +
-				"(([2-9]|[1-9][0-9])[ |-][semaine|semaines] de)|" +
-				"(([1-9]?[0-9])[ |-][mois|an|ans|année|années] de))");//other pattern to recognize expressions of >14 days
-		regexTimeSince = Pattern.compile("depuis [le dernier|la dernière|les derniers|les dernières]? ((([2-9]|[1-9][0-9]) semaines)|" +
-				"(([1-9]?[0-9])? [mois|an|ans|année|années])|" +
-				"([janvier|février|mars|avril|mai|juin|juillet|aout|août|septembre|octobre|novembre|décembre|decembre|printemps|été|hiver|automne]))");
+		regexTime = Pattern.compile("((1[4-9]|[1-9]?[2-9][0-9])( |-)(jour|jours))|" +
+				"(([2-9]|[1-9][0-9])( |-)(semaine|semaines))|" +
+				"(([1-9]?[0-9])( |-)(mois|an|ans|année|années))");//pattern to recognize expressions of >14 days
+		regexTimeFor = Pattern.compile("(pour|pendant) (le|la|les) (dernier|dernière|dernières|derniers) (((1[4-9]|[1-9]?[2-9][0-9])( |-)[jour|jours] de)|" +
+				"(([2-9]|[1-9][0-9])( |-)(semaine|semaines) de)|" +
+				"(([1-9]?[0-9])( |-)(mois|an|ans|année|années) de))");//other pattern to recognize expressions of >14 days
+		regexTimeSince = Pattern.compile("(depuis|y a|ya)( le dernier| la dernière| les derniers| les dernières)? ((([2-9]|[1-9][0-9]) semaines)|" +
+				"(([1-9]?[0-9])? (mois|an|ans|année|années)))|" +
+				"((janvier|février|mars|avril|mai|juin|juillet|aout|août|septembre|octobre|novembre|décembre|decembre|printemps|été|hiver|automne))");
 		Matcher mTime = regexTimeFor.matcher(sentenceTagged);
 		sentenceTagged = mTime.replaceAll(" <TIME_PRE> ");
 		mTime = regexTime.matcher(sentenceTagged);
@@ -1031,7 +1031,7 @@ public class ConTextFrench implements ConText {
 			return null;
 		
 		//tokenizing the sentence in words
-		String[] words =  tagged.split("[,;\\s]+");
+		String[] words =  tagged.split("[(),;\\s]+");
 		
 		String ne = applyNegEx(words);
 		String tmp = applyTemporality(words);
@@ -1269,6 +1269,5 @@ public class ConTextFrench implements ConText {
 		return "Patient";
 	}
 	
-
 
 }

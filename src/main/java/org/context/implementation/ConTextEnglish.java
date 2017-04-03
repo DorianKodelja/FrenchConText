@@ -254,7 +254,7 @@ public class ConTextEnglish implements ConText {
 	 * @throws IOException 
 	 */
 	public ConTextEnglish()
-	{	
+	{
 		
 		String regex_PSEUDO = "";
 		String regex_NEG_PRE = "";
@@ -388,7 +388,7 @@ public class ConTextEnglish implements ConText {
 	public String preProcessSentence(String sent, String concept) throws Exception
 	{
 		String sentenceTagged = " " + sent.replaceAll("\\s+", " ").toLowerCase();
-		
+
 		int lastOffset = 0;
 		int charOffset=0;
 		
@@ -405,7 +405,6 @@ public class ConTextEnglish implements ConText {
 		}
 		else
 			return null;
-		
 		
 		//replacing negation phrases with corresponding tags
 		
@@ -480,15 +479,15 @@ public class ConTextEnglish implements ConText {
 		}
 		
 		//time 
-		regexTime = Pattern.compile("((1[4-9]|[1-9]?[2-9][0-9])[ |-][day|days] of)|" +
-				"(([2-9]|[1-9][0-9])[ |-][week|weeks] of)|" +
-				"(([1-9]?[0-9])[ |-][month|months|year|years] of)");//pattern to recognize expressions of >14 days
-		regexTimeFor = Pattern.compile("[for|over] the [last|past] (((1[4-9]|[1-9]?[2-9][0-9])[ |-][day|days] of)|" +
-				"(([2-9]|[1-9][0-9])[ |-][week|weeks] of)|" +
-				"(([1-9]?[0-9])[ |-][month|months|year|years] of))");//other pattern to recognize expressions of >14 days
-		regexTimeSince = Pattern.compile("since [last|the last]? ((([2-9]|[1-9][0-9]) weeks ago)|" +
-				"(([1-9]?[0-9])? [month|months|year|years] ago)|" +
-				"([january|february|march|april|may|june|july|august|september|october|november|december|spring|summer|fall|winter]))");
+		regexTime = Pattern.compile("((1[4-9]|[1-9]?[2-9][0-9])( |-)(day|days) of)|" +
+				"(([2-9]|[1-9][0-9])( |-)(week|weeks) of)|" +
+				"(([1-9]?[0-9])( |-)(month|months|year|years) of)");//pattern to recognize expressions of >14 days
+		regexTimeFor = Pattern.compile("(for|over) the (last|past) (((1[4-9]|[1-9]?[2-9][0-9])( |-)(day|days))|" +
+				"(([2-9]|[1-9][0-9])( |-)(week|weeks))|" +
+				"(([1-9]?[0-9])( |-)(month|months|year|years)))");//other pattern to recognize expressions of >14 days
+		regexTimeSince = Pattern.compile("((([2-9]|[1-9][0-9]) weeks ago)|" +
+				"(([1-9]?[0-9])? (month|months|year|years) ago)|" +
+				"((january|february|march|april|may|june|july|august|september|october|november|december|spring|summer|fall|winter)))");
 		Matcher mTime = regexTimeFor.matcher(sentenceTagged);
 		sentenceTagged = mTime.replaceAll(" <TIME_PRE> ");
 		mTime = regexTime.matcher(sentenceTagged);
@@ -508,7 +507,6 @@ public class ConTextEnglish implements ConText {
 	{
 		if(concept.equals("") || sentence.equals(""))
 			return null;
-		
 		String tagged = preProcessSentence(sentence, concept);
 		
 		if(tagged==null)
@@ -750,6 +748,4 @@ public class ConTextEnglish implements ConText {
 		return "Patient";
 	}
 	
-
-
 }
