@@ -1,8 +1,8 @@
 # Annotation Guidelines
 
-Created in 2017 for the development of a corpus for the evalaution of French ConText algorithm 
-
-Amin Abdaoui (@amineabdaoui)
+Created in 2017 for the development of a corpus for the evalaution of French ConText algorithm. 
+Amine Abdaoui (@amineabdaoui)
+Copied in March 2020 from https://github.com/amineabdaoui/FrenchConText/blob/master/Annotation%20Guidelines.md
 
 #### Introduction 
 The aim of this manual annotation process is to detect the context of pre-tagged medial conditions (disorders). In this process, we will **not** annotate medical conditions **nor** lexical cues that change the context of these conditions (for example 'no'). The manual annotation only consists in detecting the context (for example negated or affirmed) of each tagged entity (medical condition). The pre-tagged conditions have been already detected using the SIFR Annotator (bioportal.lirmm.fr/annotator).
